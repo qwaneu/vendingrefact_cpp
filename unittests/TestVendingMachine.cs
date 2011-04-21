@@ -13,7 +13,6 @@ namespace Vender.UnitTests
         [SetUp]
         public void SetUp()
         {
-//asdasdasd
           _bin = new Bin();
             _machine = new VendingMachine(_bin);
         }
