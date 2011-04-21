@@ -1,0 +1,5 @@
+src/bin/
+src/obj/
+unittests/bin/
+unittests/obj/
+*.suo
