@@ -9,33 +9,10 @@ namespace Vender
     public enum Can { none, cola, fanta, sprite, beer };
     public enum Choice { none, cola, fanta, sprite, beer };
 
-    public class CanContainer
-    {
-        public Can type;
-        public int price;
-        public int amount;
-    }
-    public class Chipknip
-    {
-        public int credits { get; set; }
-        public Chipknip(int initial_value)
-        {
-            credits = initial_value;
-        }
 
-        internal bool HasValue(int p)
-        {
-            return credits >= p;
-        }
-        internal void Reduce(int p)
-        {
-            credits -= p;
-        }
-    }
 
     public class VendingMachine
     {
-
         private Dictionary<Choice, CanContainer> cans = new Dictionary<Choice, CanContainer>();
         private int payment_method;
         private Chipknip chipknip;
@@ -75,9 +52,9 @@ namespace Vender
                 //
                 // step2 : check price
                 //
-                if (cans[choice].price == 0)
+                if (cans[choice].Price == 0)
                 {
-                    res = cans[choice].type;
+                    res = cans[choice].Type;
                     // or price matches
                 }
                 else
@@ -86,18 +63,18 @@ namespace Vender
                     switch (payment_method)
                     {
                         case 1: // paying with coins
-                            if (c != -1 && cans[choice].price <= c)
+                            if (c != -1 && cans[choice].Price <= c)
                             {
-                                res = cans[choice].type;
-                                c -= cans[choice].price;
+                                res = cans[choice].Type;
+                                c -= cans[choice].Price;
                             }
                             break;
                         case 2: // paying with chipknip - 
                             // TODO: if this machine is in belgium this must be an error {
-                            if (chipknip.HasValue(cans[choice].price))
+                            if (chipknip.HasValue(cans[choice].Price))
                             {
-                                chipknip.Reduce(cans[choice].price);
-                                res = cans[choice].type;
+                                chipknip.Reduce(cans[choice].Price);
+                                res = cans[choice].Type;
                             }
                             break;
                         default:
@@ -121,13 +98,13 @@ namespace Vender
             //
             if (res != Can.none)
             {
-                if (cans[choice].amount <= 0)
+                if (cans[choice].Amount <= 0)
                 {
                     res = Can.none;
                 }
                 else
                 {
-                    cans[choice].amount -= 1;
+                    cans[choice].Amount -= 1;
                 }
             }
 
@@ -161,13 +138,13 @@ namespace Vender
             this.price = price;
             if (cans.ContainsKey(choice))
             {
-                cans[choice].amount += n;
+                cans[choice].Amount += n;
                 return;
             }
             CanContainer can = new CanContainer();
-            can.type = c;
-            can.amount = n;
-            can.price = price;
+            can.Type = c;
+            can.Amount = n;
+            can.Price = price;
             cans[choice] = can;
         }
     }
