@@ -56,6 +56,12 @@
     <Compile Include="TestVendingMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\VendingMachine.csproj">
+      <Project>{D25939DD-1A54-46D3-82EA-90178C9BFDF5}</Project>
+      <Name>VendingMachine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,93 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
-//test
+using Vender;
+
 namespace Vender.UnitTests
 {
-    [TestFixture]
-    public class TestVendingMachine
-    {
-        Bin _bin;
-        VendingMachine _machine;
-        [SetUp]
-        public void SetUp()
-        {
-          _bin = new Bin();
-            _machine = new VendingMachine(_bin);
-        }
 
-        [Test]
-        public void DeliversNothingWhenEmpty()
-        {
-            _machine.Choose(Choice.Cola);
-            Assert.That(_bin.Fetch(), Is.EqualTo(Can.None));
-        }
+[TestFixture]
+public class VendingMachineTest {
+  private VendingMachine machine;
 
-        [Test]
-        public void DeliversCanOfChoice()
-        {
-            _machine.AddChoice(Choice.Cola, Can.Cola);
-            _machine.AddChoice(Choice.Sinas, Can.Sinas);
-            _machine.Choose(Choice.Cola);
-            Assert.That(_bin.Fetch(), Is.EqualTo(Can.Cola));
-            _machine.Choose(Choice.Sinas);
-            Assert.That(_bin.Fetch(), Is.EqualTo(Can.Sinas));
-        }
-    }
-   
+  [SetUp]
+  public void Setup() {
+    machine = new VendingMachine();
+  }
+  
+  [Test]
+  public void Testchoiceless_machine_delivers_nothing() {
+    Assert.AreEqual(Can.none, machine.deliver(Choice.cola));
+    Assert.AreEqual(Can.none, machine.deliver(Choice.fanta));
+  }
 
-    public class VendingMachine
-    {
-        private readonly Bin _bin;
-        private IDictionary<Choice, Can> _choices = new Dictionary<Choice, Can>();
+  [Test]
+  public void Testdelivers_can_of_choice() {
+    machine.configure(Choice.cola, Can.cola, 10);
+    machine.configure(Choice.fanta, Can.fanta, 10);
+    machine.configure(Choice.sprite, Can.sprite, 10);
+    Assert.AreEqual(Can.cola, machine.deliver(Choice.cola));
+    Assert.AreEqual(Can.fanta, machine.deliver(Choice.fanta));
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+  }
+  
+  [Test]
+  public void Testdelivers_nothing_when_making_invalid_choice() {
+    machine.configure(Choice.cola, Can.cola, 10);
+    machine.configure(Choice.fanta, Can.fanta, 10);
+    machine.configure(Choice.sprite, Can.sprite, 10);
+    Assert.AreEqual(Can.none, machine.deliver(Choice.beer));
+  }
 
-        public VendingMachine(Bin bin)
-        {
-            _bin = bin;
-        }
+  [Test]
+  public void Testdelivers_nothing_when_not_paid() {
+    machine.configure(Choice.fanta, Can.fanta, 10, 2);
+    machine.configure(Choice.sprite, Can.sprite, 10, 1);
 
-        public void Choose(Choice choice)
-        {
-            if (_choices.ContainsKey(choice))
-            {
-                _bin.Catch(_choices[choice]);
-            }
-        }
+    Assert.AreEqual(Can.none, machine.deliver(Choice.fanta));
+  }
 
-        public void AddChoice(Choice choice, Can can)
-        {
-            _choices[choice] = can;
-        }
-    }
+  [Test]
+  public void Testdelivers_fanta_when_paid() {
+    machine.configure(Choice.sprite, Can.sprite, 10, 1);
+    machine.configure(Choice.fanta, Can.fanta, 10, 2);
 
-    public enum Choice
-    {
-        Cola,
-        Sinas
-    }
-    public enum Can
-    {
-        None,
-        Cola,
-        Sinas
-    }
+    machine.set_value(2);
+    Assert.AreEqual(Can.fanta, machine.deliver(Choice.fanta));
+    Assert.AreEqual(Can.none, machine.deliver(Choice.sprite));
+  }
 
-    public class Bin
-    {
-        private Can _can = Can.None;
+  [Test]
+  public void Testdelivers_sprite_when_paid() {
+    machine.configure(Choice.sprite, Can.sprite, 10, 1);
+    machine.configure(Choice.fanta, Can.fanta, 10, 2);
 
-        public Can Fetch()
-        {
-            return _can;
-        }
+    machine.set_value(2);
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(Can.none, machine.deliver(Choice.sprite));
+  }
 
-        public void Catch(Can can)
-        {
-            _can = can;
-            
-        }
-    }
+  [Test]
+  public void Testadd_payments() {
+    machine.configure(Choice.sprite, Can.sprite, 10, 1);
+    machine.configure(Choice.fanta, Can.fanta, 10, 2);
 
+    machine.set_value(1);
+    machine.set_value(1);
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(Can.none, machine.deliver(Choice.sprite));
+  }
+
+  [Test]
+  public void Testreturns_change() {
+    machine.configure(Choice.sprite, Can.sprite, 10, 1);
+    machine.set_value(2);
+    Assert.AreEqual(2, machine.get_change());
+    Assert.AreEqual(0, machine.get_change());
+  }
+
+  [Test]
+  public void Teststock() {
+    machine.configure(Choice.sprite, Can.sprite, 1, 0);
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(Can.none, machine.deliver(Choice.sprite));
+  }
+
+  [Test]
+  public void Testadd_stock() {
+    machine.configure(Choice.sprite, Can.sprite, 1, 0);
+    machine.configure(Choice.sprite, Can.sprite, 1, 0);
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(Can.none, machine.deliver(Choice.sprite));
+  }
+
+  [Test]
+  public void Testcheckout_chip_if_chipknip_inserted() {
+    machine.configure(Choice.sprite, Can.sprite, 1, 1);
+    Chipknip chip = new Chipknip(10);
+    machine.insert_chip(chip);
+    Assert.AreEqual(Can.sprite, machine.deliver(Choice.sprite));
+    Assert.AreEqual(9, chip.credits);
+  }
+  
+  [Test]
+  public void Testcheckout_chip_empty() {
+    machine.configure(Choice.sprite, Can.sprite, 1, 1);
+    Chipknip chip = new Chipknip(0);
+    machine.insert_chip(chip);
+    Assert.AreEqual(Can.none, machine.deliver(Choice.sprite));
+    Assert.AreEqual(0, chip.credits);
+  }
+}
 
 }
