@@ -3,3 +3,6 @@ src/obj/
 unittests/bin/
 unittests/obj/
 *.suo
+test-results
+*.pidb
+*.userprefs
