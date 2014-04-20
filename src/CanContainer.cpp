@@ -7,7 +7,7 @@
 
 #include "CanContainer.h"
 
-CanContainer::CanContainer() : Can(NoCan), Price(0), Amount(0) { }
+CanContainer::CanContainer() : Type(NoCan), Price(0), Amount(0) { }
 
 CanContainer::~CanContainer() {
 

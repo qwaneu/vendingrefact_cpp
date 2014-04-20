@@ -4,11 +4,12 @@
  *  Created on: Apr 20, 2014
  *      Author: vagrant
  */
-
+#include <stdio.h>
 #include "VendingMachine.h"
+#include "CanContainer.h"
 #include "Chipknip.h"
 
-VendingMachine::VendingMachine() {
+VendingMachine::VendingMachine() : c(-1), chipknip(NULL) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -25,7 +26,7 @@ void VendingMachine::set_value(int v) {
 		c = v;
 	}
 }
-void VendingMachine::insert_chip(Chipknip& chipknip) {
+void VendingMachine::insert_chip(Chipknip *chipknip) {
 	// TODO
 	// can't pay with chip in brittain
 	payment_method = 2;
@@ -56,8 +57,8 @@ Can VendingMachine::deliver(Choice choice) {
 				break;
 			case 2: // paying with chipknip -
 				// TODO: if this machine is in belgium this must be an error {
-				if (chipknip.HasValue(cans[choice]->Price)) {
-					chipknip.Reduce(cans[choice]->Price);
+				if (chipknip->HasValue(cans[choice]->Price)) {
+					chipknip->Reduce(cans[choice]->Price);
 					res = cans[choice]->Type;
 				}
 				break;

@@ -11,7 +11,7 @@
 #include "enums.h"
 
 class Chipknip;
-
+class CanContainer;
 class VendingMachine {
 public:
 	VendingMachine();
@@ -19,22 +19,21 @@ public:
 
 	void set_value(int v);
 
-	void insert_chip(Chipknip& chipknip);
+	void insert_chip(Chipknip *chipknip);
 
 	// delivers the can if all ok {
 	Can deliver(Choice choice);
 	int get_change();
 
-	void configure(Choice choice, Can c, int n) {
-		configure(choice, c, n, 0);
-	}
+	void configure(Choice choice, Can c, int n);
+
 	void configure(Choice choice, Can c, int n, int price);
 
 private:
 	std::map<Choice, CanContainer*> cans;
 	int payment_method;
-	Chipknip& chipknip;
-	int c = -1;
+	Chipknip *chipknip;
+	int c;
 	int price;
 };
 

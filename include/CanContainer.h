@@ -17,7 +17,6 @@ public:
     Can Type;
     int Price;
     int Amount;
-}
 };
 
 #endif /* CANCONTAINER_H_ */
