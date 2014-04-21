@@ -9,7 +9,7 @@
 #include "CanContainer.h"
 #include "Chipknip.h"
 
-VendingMachine::VendingMachine() : c(-1), chipknip(NULL) {
+VendingMachine::VendingMachine() : payment_method(0), c(-1), chipknip(NULL) {
 	// TODO Auto-generated constructor stub
 
 }
