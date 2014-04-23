@@ -1,8 +1,6 @@
-env = Environment()
-env.Append(CPPPATH = [
-  '/usr/include', 
-  'include', 
-  'ext'])
+env = Environment(
+  CPPPATH = ['/usr/include','include','ext'],
+  CXXFLAGS="-std=c++0x")
 
 gtest_env = env.Clone()
 gtest_env.Append(LINKFLAGS=['-pthread', '-Wall', '-g'])

@@ -8,6 +8,7 @@
 #ifndef VENDINGMACHINE_H_
 #define VENDINGMACHINE_H_
 #include <map>
+#include <memory>
 #include "enums.h"
 
 class Chipknip;
@@ -30,7 +31,7 @@ public:
 	void configure(Choice choice, Can c, int n, int price);
 
 private:
-	std::map<Choice, CanContainer*> cans;
+	std::map<Choice, std::shared_ptr<CanContainer>> cans;
 	int payment_method;
 	Chipknip *chipknip;
 	int c;

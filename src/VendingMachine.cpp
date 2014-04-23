@@ -116,7 +116,7 @@ void VendingMachine::configure(Choice choice, Can c, int n, int price) {
 	can->Type = c;
 	can->Amount = n;
 	can->Price = price;
-	cans[choice] = can;
+	cans[choice] = std::shared_ptr<CanContainer>(can);
 }
 
 
