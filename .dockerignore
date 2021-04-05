@@ -1,0 +1,13 @@
+.git
+bin/
+obj/
+.idea/
+Dockerfile
+set-password.sh
+donstro-set-password.sh
+.dockerignore
+build.sh
+donstro/
+README.md
+rebuild.sh
+build/*
