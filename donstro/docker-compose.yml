@@ -1,0 +1,98 @@
+version: '3.7'
+services:
+  cat:
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    environment:
+      # Adjust to your screen size
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=968
+      - RUN_XTERM=yes
+    ports:
+      - "8080:8080"
+    volumes:
+      - cathome:/home/experience
+      - qwanhome:/git/qwan
+    networks:
+      - x11
+  tiger:
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    environment:
+      # Adjust to your screen size
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=968
+      - RUN_XTERM=yes
+    ports:
+      - "8081:8080"
+    volumes:
+      - tigerhome:/home/experience
+      - qwanhome:/git/qwan
+    networks:
+      - x11
+  cheetah:
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    environment:
+      # Adjust to your screen size
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=968
+      - RUN_XTERM=yes
+    ports:
+      - "8082:8080"
+    volumes:
+      - cheetahhome:/home/experience
+      - qwanhome:/git/qwan
+    networks:
+      - x11
+  lion:
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    environment:
+      # Adjust to your screen size
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=968
+      - RUN_XTERM=yes
+    ports:
+      - "8083:8080"
+    volumes:
+      - lionhome:/home/experience
+      - qwanhome:/git/qwan
+    networks:
+      - x11
+  puma:
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    environment:
+      # Adjust to your screen size
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=968
+      - RUN_XTERM=yes
+    ports:
+      - "8084:8080"
+    volumes:
+      - pumahome:/home/experience
+      - qwanhome:/git/qwan
+    networks:
+      - x11
+  qwan:
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    environment:
+      # Adjust to your screen size
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=968
+      - RUN_XTERM=yes
+    ports:
+      - "8090:8080"
+    volumes:
+      - qwanhome:/home/experience
+    networks:
+      - x11
+networks:
+  x11:
+
+volumes:
+  cathome:
+  tigerhome:
+  lionhome:
+  pumahome:
+  cheetahhome:
+  leopardhome:
+  cougarhome:
+  lynxhome:
+  qwanhome:
