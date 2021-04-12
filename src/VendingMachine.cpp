@@ -106,17 +106,18 @@ int VendingMachine::get_change() {
 void VendingMachine::configure(Choice choice, Can c, int n) {
 	configure(choice, c, n, 0);
 }
+
 void VendingMachine::configure(Choice choice, Can c, int n, int price) {
 	this->price = price;
 	if (cans[choice]) {
 		cans[choice]->Amount += n;
 		return;
 	}
-	CanContainer *can = new CanContainer();
+	auto can = std::make_shared<CanContainer>();
 	can->Type = c;
 	can->Amount = n;
 	can->Price = price;
-	cans[choice] = std::shared_ptr<CanContainer>(can);
+	cans[choice] = can;
 }
 
 

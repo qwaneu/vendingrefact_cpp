@@ -20,7 +20,6 @@ public:
 
 	void set_value(int v);
     void insert_chip(std::shared_ptr<Chipknip> chipknip);
-	void insert_chip(Chipknip *chipknip);
 
 	// delivers the can if all ok {
 	Can deliver(Choice choice);
