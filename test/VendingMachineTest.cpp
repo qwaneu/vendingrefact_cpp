@@ -89,16 +89,17 @@ TEST_F(VendingMachineTest, add_stock) {
 
 TEST_F(VendingMachineTest, checkout_chip_if_chipknip_inserted) {
 	machine.configure(SpriteChoice, SpriteCan, 1, 1);
-	Chipknip chip(10);
-	machine.insert_chip(&chip);
+    std::shared_ptr<Chipknip> chip = std::make_shared<Chipknip>(10);
+
+    machine.insert_chip(chip);
 	ASSERT_EQ(SpriteCan, machine.deliver(SpriteChoice));
-	ASSERT_EQ(9, chip.credits);
+	ASSERT_EQ(9, chip->credits);
 }
 
 TEST_F(VendingMachineTest, checkout_chip_empty) {
 	machine.configure(SpriteChoice, SpriteCan, 1, 1);
-	Chipknip chip(0);
-	machine.insert_chip(&chip);
+	std::shared_ptr<Chipknip> chip = std::make_shared<Chipknip>(0);
+	machine.insert_chip(chip);
 	ASSERT_EQ(NoCan, machine.deliver(SpriteChoice));
-	ASSERT_EQ(0, chip.credits);
+	ASSERT_EQ(0, chip->credits);
 }

@@ -19,7 +19,7 @@ public:
 	virtual ~VendingMachine();
 
 	void set_value(int v);
-
+    void insert_chip(std::shared_ptr<Chipknip> chipknip);
 	void insert_chip(Chipknip *chipknip);
 
 	// delivers the can if all ok {
@@ -33,7 +33,7 @@ public:
 private:
 	std::map<Choice, std::shared_ptr<CanContainer>> cans;
 	int payment_method;
-	Chipknip *chipknip;
+	std::shared_ptr<Chipknip> chipknip;
 	int c;
 	int price;
 };

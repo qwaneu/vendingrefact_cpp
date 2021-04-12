@@ -26,7 +26,7 @@ void VendingMachine::set_value(int v) {
 		c = v;
 	}
 }
-void VendingMachine::insert_chip(Chipknip *chipknip) {
+void VendingMachine::insert_chip(std::shared_ptr<Chipknip> chipknip) {
 	// TODO
 	// can't pay with chip in brittain
 	payment_method = 2;
