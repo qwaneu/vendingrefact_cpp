@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   cat:
-    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.1
     environment:
       # Adjust to your screen size
       - DISPLAY_WIDTH=1600
@@ -15,7 +15,7 @@ services:
     networks:
       - x11
   tiger:
-    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.1
     environment:
       # Adjust to your screen size
       - DISPLAY_WIDTH=1600
@@ -29,7 +29,7 @@ services:
     networks:
       - x11
   cheetah:
-    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.1
     environment:
       # Adjust to your screen size
       - DISPLAY_WIDTH=1600
@@ -43,7 +43,7 @@ services:
     networks:
       - x11
   lion:
-    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.1
     environment:
       # Adjust to your screen size
       - DISPLAY_WIDTH=1600
@@ -57,7 +57,7 @@ services:
     networks:
       - x11
   puma:
-    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.1
     environment:
       # Adjust to your screen size
       - DISPLAY_WIDTH=1600
@@ -71,7 +71,7 @@ services:
     networks:
       - x11
   qwan:
-    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.0
+    image: 525595969507.dkr.ecr.eu-central-1.amazonaws.com/qwan/vendingrefact-cpp:0.1.1
     environment:
       # Adjust to your screen size
       - DISPLAY_WIDTH=1600
